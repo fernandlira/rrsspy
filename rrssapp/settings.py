@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'rrssapp'
+    'rrss'
 ]
 
 MIDDLEWARE = [
@@ -156,5 +156,4 @@ import datetime
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=100000),
 }
-
 
