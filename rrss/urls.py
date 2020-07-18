@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import UserView, PostView, FollowUser, DeletePost, FollowView
+from .views import UserView, PostView, FollowUser, FollowView
 from rest_framework_jwt.views import obtain_jwt_token
 
 
