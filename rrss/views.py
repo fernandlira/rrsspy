@@ -62,10 +62,7 @@ class PostView(viewsets.ViewSet):
 def FollowUser(request,id=1):
     pass
 
-def DeletePost(request,id=1):
-    post = Post.objects.get(pk=id)
-    if post.user == request.user:
-        post.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    else:
-        print(request.user)
+class FollowView(viewsets.ModelViewSet):
+    queryset = Follow.objects.all()
+    serializer_class = FollowSerializer
+    
