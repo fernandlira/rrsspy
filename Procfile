@@ -1,0 +1,1 @@
+web: gunicorn rrssapp.wsgi --log-file -

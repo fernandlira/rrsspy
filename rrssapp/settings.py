@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+# For heroku
+import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +30,7 @@ SECRET_KEY = "9be*2q(r)1n2f8n7ac1xx)^ry(6i)zvf3o#n+e%ybe#%@#e3o)"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,6 +92,12 @@ DATABASES = {
     }
 }
 
+# For heroku
+# DATABASES = {
+#    "default": dj_database_url.config()
+# }
+#
+#
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -121,6 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+# For heroku
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# django_heroku.settings(locals())
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
