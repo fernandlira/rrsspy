@@ -1,0 +1,8 @@
+DJANGO_SETTINGS_MODULE = 'application.settings'
+
+DB_ENGINE = 'django.db.backends.postgresql'
+DB_NAME = 'rrss'
+DB_USER = 'postgres'
+DB_PASSWORD = 'postgres'
+DB_HOST = 'localhost'
+DB_PORT = 5432
