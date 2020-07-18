@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .models import Post, Comment, Follow
 from rest_framework import filters
 from django.shortcuts import get_object_or_404
+from rest_framework.parsers import FileUploadParser
 
 # Create your views here.
 
@@ -29,7 +30,9 @@ class PostView(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        pass
+        post = Post.objects.create(user=request.user,image=request.data['image'],caption=request.data['caption'])
+        post.save()
+        return Response(status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
         queryset = Post.objects.all()
