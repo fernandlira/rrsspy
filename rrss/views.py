@@ -62,14 +62,17 @@ class PostView(viewsets.ViewSet):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-def FollowUser(request,id=1):
-    pass
 
 
 class CommentView(viewsets.ViewSet):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+    def list(self, request):
+        queryset = Comment.objects.all()
+        serializer = CommentSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def create(self, request):
         comment = Comment.objects.create(user=request.user,post_id=int(request.data['id']),comment=request.data['comment'])
@@ -95,4 +98,29 @@ class CommentView(viewsets.ViewSet):
 class FollowView(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    
+
+    def list(self, request):
+        queryset = Follow.objects.all()
+        serializer = FollowSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        post = Follow.objects.create(following_id=int(request.data['id']), followed_id=int(request.data['id']))
+        post.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk=None):
+        queryset = Follow.objects.all()
+        comment = get_object_or_404(queryset, pk=pk)
+        serializer = FollowSerializer(comment, data=request.data, partial=False)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk=None):
+        queryset = Follow.objects.all()
+        comment = get_object_or_404(queryset, pk=pk)
+        serializer = FollowSerializer(comment, data=request.data, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)

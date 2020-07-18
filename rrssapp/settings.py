@@ -151,6 +151,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
 import datetime
 
 JWT_AUTH = {
