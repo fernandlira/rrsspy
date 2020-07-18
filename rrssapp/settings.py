@@ -81,21 +81,21 @@ WSGI_APPLICATION = "rrssapp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASS"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": os.getenv("DB_ENGINE"),
+#         "NAME": os.getenv("DB_NAME"),
+#         "USER": os.getenv("DB_USER"),
+#         "PASSWORD": os.getenv("DB_PASS"),
+#         "HOST": os.getenv("DB_HOST"),
+#         "PORT": os.getenv("DB_PORT"),
+#     }
+# }
 
 # For heroku
-# DATABASES = {
-#    "default": dj_database_url.config()
-# }
+DATABASES = {
+   "default": dj_database_url.config()
+}
 #
 #
 
@@ -131,8 +131,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 # For heroku
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+django_heroku.settings(locals())
 
 
 MEDIA_URL = '/media/'

@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 def main():
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rrssapp.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rrssapp.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -16,10 +16,7 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    env_path = Path(".") / ".env"
-    load_dotenv(dotenv_path=env_path)
     execute_from_command_line(sys.argv)
-
 
 if __name__ == "__main__":
     main()
