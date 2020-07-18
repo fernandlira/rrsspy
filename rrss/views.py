@@ -62,9 +62,17 @@ class PostView(viewsets.ViewSet):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-def FollowUser(request,id=1):
-    pass
 
 class FollowView(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
+
+    def list(self, request):
+        queryset = Follow.objects.all()
+        serializer = FollowSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        post = Follow.objects.create(following_id=request.data['following_id'], followed_id=request.data['followed_id'])
+        post.save()
+        return Response(status=status.HTTP_201_CREATED)
