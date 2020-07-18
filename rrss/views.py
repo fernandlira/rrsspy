@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .models import Post, Comment, Follow
 from rest_framework import filters
 from django.shortcuts import get_object_or_404
+from rest_framework.parsers import FileUploadParser
 
 # Create your views here.
 
@@ -29,7 +30,9 @@ class PostView(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        pass
+        post = Post.objects.create(user=request.user,image=request.data['image'],caption=request.data['caption'])
+        post.save()
+        return Response(status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
         queryset = Post.objects.all()
@@ -61,6 +64,33 @@ class PostView(viewsets.ViewSet):
 
 def FollowUser(request,id=1):
     pass
+
+
+class CommentView(viewsets.ViewSet):
+
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def create(self, request):
+        comment = Comment.objects.create(user=request.user,post_id=int(request.data['id']),comment=request.data['comment'])
+        comment.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk=None):
+        queryset = Comment.objects.all()
+        comment = get_object_or_404(queryset, pk=pk)
+        serializer = CommentSerializer(comment, data=request.data, partial=False)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk=None):
+        queryset = Comment.objects.all()
+        comment = get_object_or_404(queryset, pk=pk)
+        serializer = CommentSerializer(comment, data=request.data, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)
 
 class FollowView(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
