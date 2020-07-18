@@ -8,7 +8,7 @@ class Post(models.Model):
     caption = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return f"Post de {self.user.username}"
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
