@@ -8,13 +8,11 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 
 import os
-import django
-
 
 from django.core.wsgi import get_wsgi_application
 
 # For heroku
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rrssapp.settings')
-django.setup()
+
 application = get_wsgi_application()
