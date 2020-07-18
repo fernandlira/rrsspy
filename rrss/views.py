@@ -69,6 +69,11 @@ class CommentView(viewsets.ViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+    def list(self, request):
+        queryset = Comment.objects.all()
+        serializer = CommentSerializer(queryset, many=True)
+        return Response(serializer.data)
+
     def create(self, request):
         comment = Comment.objects.create(user=request.user,post_id=int(request.data['id']),comment=request.data['comment'])
         comment.save()
@@ -93,6 +98,11 @@ class CommentView(viewsets.ViewSet):
 class FollowView(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
+
+    def list(self, request):
+        queryset = Follow.objects.all()
+        serializer = FollowSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def create(self, request):
         post = Follow.objects.create(following_id=int(request.data['id']), followed_id=int(request.data['id']))
